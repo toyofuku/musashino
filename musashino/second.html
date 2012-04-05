@@ -1,0 +1,112 @@
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script>
+$("#p1").live('pagebeforecreate',function(evt){
+		jQuery.ajax({
+			async: false,
+			type:"GET",
+			url:"http://www.city.musashino.lg.jp/cgi-evt/event/event.cgi",
+			success:function(data){
+				$("table#event", data).each(function(){
+					var html = $(this);
+					$('img', html).each(function(){
+						var alt = $(this).attr('alt');
+						$(this).replaceWith('<span>['+alt+'] </span>');
+					});
+					$('tr:first',html).remove();
+					$('th', html).each(function(){
+						var txt = $(this).text();
+						$(this).replaceWith('<li data-role="list-divider">'+txt+'</li>');
+					});
+					$('a', html).each(function(){
+						var href = $(this).attr('href');
+						href = href.replace('../../','http://www.city.musashino.lg.jp/');
+						$(this).attr('href',href);
+					});
+					var ul = $("<ul data-role='listview'></ul>");
+					$('li', html).each(function(){
+						ul.append(this);
+					});
+
+					$("div#event").append(ul);
+				});
+			}
+		});
+});
+</script>
+</head>
+<body>
+<div id="p1" data-role="page" data-theme="b">
+    <div data-role="header" data-theme="b">
+        <h1>イベントカレンダー</h1>
+        <a href="#d1" data-rel="dialog" data-transition="pop" class="ui-btn-right">検索</a>
+    </div>
+    <div data-role="content" data-theme="c" id="event">
+		<!--
+        <h2>2012年3月</h2>
+        <table id="event"></table>
+		-->
+    </div>
+</div>
+
+<div id="d1" data-role="page" data-theme="b">
+     
+    <div data-role="header" data-theme="b">
+        <h1>イベント検索</h1>
+    </div>
+
+    <div data-role="content" data-theme="c">
+    <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup"> 
+            <div data-role="collapsible"> 
+            <legend>カテゴリ:</legend> 
+            <input type="checkbox" name="checkbox-1a" id="checkbox-1a" class="custom" /> 
+            <label for="checkbox-1a">イベント</label> 
+            <input type="checkbox" name="checkbox-2a" id="checkbox-2a" class="custom" /> 
+            <label for="checkbox-2a">講座・講習</label> 
+            <input type="checkbox" name="checkbox-3a" id="checkbox-3a" class="custom" /> 
+            <label for="checkbox-3a">健康</label> 
+            <input type="checkbox" name="checkbox-4a" id="checkbox-4a" class="custom" /> 
+            <label for="checkbox-4a">スポーツ</label> 
+            <input type="checkbox" name="checkbox-5a" id="checkbox-5a" class="custom" /> 
+            <label for="checkbox-5a">子育て</label> 
+            <input type="checkbox" name="checkbox-6a" id="checkbox-6a" class="custom" /> 
+            <label for="checkbox-6a">キッズ</label> 
+            <input type="checkbox" name="checkbox-7a" id="checkbox-7a" class="custom" /> 
+            <label for="checkbox-7a">議会</label> 
+            <input type="checkbox" name="checkbox-8a" id="checkbox-8a" class="custom" /> 
+            <label for="checkbox-8a">審議会</label> 
+            <input type="checkbox" name="checkbox-9a" id="checkbox-9a" class="custom" /> 
+            <label for="checkbox-9a">パブリックコメント</label> 
+            </div>
+        </fieldset> 
+
+
+        <fieldset data-role="controlgroup"> 
+            <div data-role="collapsible"> 
+            <legend>対象:</legend> 
+            <input type="checkbox" name="checkbox-1b" id="checkbox-1b" class="custom" /> 
+            <label for="checkbox-1b">未就学児</label> 
+            <input type="checkbox" name="checkbox-2b" id="checkbox-2b" class="custom" /> 
+            <label for="checkbox-2b">小学生</label> 
+            <input type="checkbox" name="checkbox-3b" id="checkbox-3b" class="custom" /> 
+            <label for="checkbox-3b">中高生</label> 
+            <input type="checkbox" name="checkbox-4b" id="checkbox-4b" class="custom" /> 
+            <label for="checkbox-4b">大人</label> 
+            <input type="checkbox" name="checkbox-5b" id="checkbox-5b" class="custom" /> 
+            <label for="checkbox-5b">親子</label> 
+            <input type="checkbox" name="checkbox-6b" id="checkbox-6b" class="custom" /> 
+            <label for="checkbox-6b">高齢者</label> 
+            </div>
+        </fieldset> 
+
+        <a href="#p1" data-role="button" data-inline="true">キャンセル</a>
+        <a href="#p1" data-role="button" data-inline="true" data-theme="b">検索</a>
+    </div>
+    </div> 
+</div>
+</body>

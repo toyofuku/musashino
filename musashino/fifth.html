@@ -1,0 +1,43 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+<script>
+
+$("#p1").live('pagebeforecreate',function(evt1){
+//	console.log("pagebeforecreate");
+
+	jQuery.ajax({
+		async: false,
+		type:"GET",
+		url:"http://www.city.musashino.lg.jp/news.rss",
+		success:function(data){
+			$("item", data).each(function(){
+				var href = $(this).attr("rdf:about");
+				var title = $("title",this).text();
+				var date = $('date',this).text();
+				date = date.substring(0,16);
+				date = date.replace('T',' ');
+				$("<li><a href='"+href+"'><p>"+date+"</p><h3>"+title+"</h3></a></li>").appendTo("ul#news01");
+			});
+//			$('ul#news01').trigger('updatelayout');
+		}
+	});
+
+});
+
+//$("#p1").live('pagecreate', function(evt2){console.log("pagecreate");});
+//$("#p1").live('pageinit',function(evt1){console.log("pageinit");});
+
+</script>
+<body>
+<div id="p1" data-role="page" data-theme="b">
+	<div data-role="header" data-theme="b">
+		<h1>RSS</h1>
+	</div>
+	<div data-role="content" data-theme="d">
+		<ul id="news01" data-role="listview" data-inset="false"></ul>
+	</div>
+</div>
+</body>

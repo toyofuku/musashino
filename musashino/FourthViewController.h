@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  FourthViewController.h
 //  musashino
 //
 //  Created by 豊福 剛 on 12/03/25.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
-
-@property (retain, nonatomic) IBOutlet UIWebView *webView;
+@interface FourthViewController : UIViewController
 
 @end

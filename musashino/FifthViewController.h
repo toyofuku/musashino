@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  FifthViewController.h
 //  musashino
 //
 //  Created by 豊福 剛 on 12/03/25.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface FifthViewController : UIViewController<UIWebViewDelegate>
 
 @property (retain, nonatomic) IBOutlet UIWebView *webView;
-
 @end
